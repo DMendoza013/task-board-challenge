@@ -95,7 +95,7 @@ function handleAddTask(event){
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event){
-     index = $(this).attr('data-task-id')
+    index = $(this).attr('data-task-id')
     taskList = taskList.filter(function(t) {
       if(t.id == index ) {
         return false;
