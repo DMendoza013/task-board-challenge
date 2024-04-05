@@ -1,5 +1,5 @@
 // Retrieve tasks and nextId from localStorage
-let taskList = JSON.parse(localStorage.getItem("tasks"));
+let taskList = JSON.parse(localStorage.getItem("taskList"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 //capturing user input
 const taskFormEl = $('#taskForm');
@@ -31,7 +31,7 @@ function generateTaskId() {
 
   localStorage.setItem('taskList',JSON.stringify(getTasks));
 
-  // renderTaskList();
+  renderTaskList();
 
   // userTaskDateEL.val('');
   // userTaskDateEL.val('');
@@ -40,32 +40,45 @@ function generateTaskId() {
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
-
+    console.log(task.id);
+  const taskCard = $('<div>')
+    .addclass('card project-card draggable my-3')
+    .attr('data-task-id', task.id);
+    const cardHeader = $('<div>').addClass('card-header h4').text(task.title);
+    const cardBody = $('<div>').addClass('card-body');
+    const cardDescription = $('<p>').addClass('card-text').text(task.date);
+    const cardDueDate = $('<p>').addClass('card-text').text(task.desc);
+    const cardDeleteBtn = $('<button>')
+    .addClass('btn btn-danger delete')
+    .text('Delete')
+    .attr('data-project-id', project.id);
+  cardDeleteBtn.on('click', handleDeleteProject);
+    
 }
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
-  // const storageTask = taskList;
+  const storageTask = taskList;
 
-  // const todoList = $('#todo-cards');
-  // todoList.empty();
+  const todoList = $('#todo-cards');
+  todoList.empty();
 
-  // const inProgressList = $('#in-progress-cards');
-  // inProgressList.empty();
+  const inProgressList = $('#in-progress-cards');
+  inProgressList.empty();
 
-  // const doneList = $('#done-cards');
-  // doneList.empty();
+  const doneList = $('#done-cards');
+  doneList.empty();
 
 
-  // for(task of storageTask) {
-  //   if (task.status === 'to-do') {
-  //     todoList.append(createTaskCard(task));
-  //   } else if (task.status === 'in-progress') {
-  //     inProgressList.append(createTaskCard(task));
-  //   } else if (task.status === 'done') {
-  //     doneList.append(createTaskCard(task));
-  //   }
-  // }
+  for(task of storageTask) {
+    if (task.status === 'to-do') {
+      todoList.append(createTaskCard(task));
+    } else if (task.status === 'in-progress') {
+      inProgressList.append(createTaskCard(task));
+    } else if (task.status === 'done') {
+      doneList.append(createTaskCard(task));
+    }
+  }
 
 }
 
